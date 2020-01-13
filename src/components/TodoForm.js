@@ -17,22 +17,21 @@ class TodoForm extends Component{
 
   handleOnSubmit = e => {
     e.preventDefault();
+    this.props.addTask(this.state.todoList)
     
   }
    
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleOnSubmit}>
         <input 
           type="text"
-          name=""
+          name="task"
           onChange={this.handleChanges}
-          value={this.state.todotask}
+          value={this.state.todoList}
         />
-        <button onSubmit={this.handleOnSubmit}>Add</button>
+        <button>Add</button>
         <button onSubmit={""}>Clear Completed</button>
-
-
       </form>
     )
   }
