@@ -5,12 +5,12 @@ import TodoForm from './components/TodoForm';
 const taskList = [
   {
     task: 'Organize Garage',
-    id: 1528817077286,
+    id: 1528817077284,
     completed: false
   },
   {
     task: 'Bake Cookies',
-    id: 1528817084358,
+    id: 1528817084354,
     completed: false
   },
   {
@@ -40,14 +40,14 @@ class App extends Component {
   }
 
   toggleTask = id => {
-    const newTaskList = this.state.todoList.map(task => {
-      if(task.id === id) 
+    const newTaskList = this.state.todoList.map(item => {
+      if(item.id === id) 
         { return {
-          ...task,
-          completed: !task.completed
+          ...item,
+          completed: !item.completed
           }
         } else {
-          return task
+          return item
         }
     })
     this.setState({
@@ -59,7 +59,7 @@ class App extends Component {
 
   addTask = taskName => {
     const newTask = {
-      name: taskName,
+      task: taskName,
       id: Date.now(),
       completed: false
     };
@@ -68,7 +68,17 @@ class App extends Component {
     });
   }
 
+  handleChanges = e => {
+    this.setState({
+      todotask: e.target.value
+    })
+  }
 
+  handleOnSubmit = e => {
+    e.preventDefault();
+    this.props.addTask(this.state.todoList)
+    
+  }
 
   render() {
     return (
