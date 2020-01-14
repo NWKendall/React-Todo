@@ -5,7 +5,8 @@ class TodoForm extends Component{
   constructor(){
     super();
     this.state ={
-      todoList: ""
+      todoList: "",
+      listDisplay: "all"
     }
   }
 
@@ -21,20 +22,38 @@ class TodoForm extends Component{
     })
   }
 
+  updateListDisplay = s => {
+    this.setState({
+      listDisplay: s
+    })
+  }
+
+
+
   render() {
+
+    let todoList = [];
+
+    if (this.state.listDisplay === "all"){
+      todoList = this.state.todoList
+    } else if (this.state.listDisplay === "complete") {
+      todoList = this.state.todoList.filter(todo => !todo.completed)
+    }
+
     return (
       <form onSubmit={this.handleOnSubmit}>
         <input 
           type="text"
           name="task"
-          placeHolder="new task"
+          placeholder="new task"
           onChange={this.handleChanges}
           value={this.state.todoList}
         />
-        <button >Add</button>
-        <button>Clear</button>
-
+        <button onSubmit={this.handleOnSubmit}>Add</button>
+        <button onClick={() => this.state.updateListDisplay("complete")}>Clear</button>
+        
       </form>
+      
     )
   }
 }

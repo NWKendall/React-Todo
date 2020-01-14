@@ -13,8 +13,10 @@ const TodoList = props => {
           key={task.id}
           task={task}
           toggleTask={props.toggleTask}
+          completeTask={props.completeTask}
         />
       ))}
+      
     </div>
   );
 };

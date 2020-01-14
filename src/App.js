@@ -2,28 +2,7 @@ import React, { Component } from 'react';
 import TodoList from "./components/TodoList";
 import TodoForm from './components/TodoForm';
 
-const taskList = [
-  {
-    task: 'Organize Garage',
-    id: 1528817077284,
-    completed: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 1528817084354,
-    completed: false
-  },
-  {
-    task: 'Organize Garage',
-    id: 1528817077286,
-    completed: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 1528817084358,
-    completed: false
-  }
-];
+const taskList = [];
 
 
 
@@ -45,6 +24,7 @@ class App extends Component {
         { return {
           ...item,
           completed: !item.completed
+          
           }
         } else {
           return item
@@ -54,8 +34,6 @@ class App extends Component {
       todoList: newTaskList
     });
   }
-
-
 
   addTask = taskName => {
     const newTask = {
@@ -88,6 +66,7 @@ class App extends Component {
         <TodoList 
           todoList={this.state.todoList} 
           toggleTask={this.toggleTask}
+          completeTask={this.completeTask}
         />
         <TodoForm 
           addTask={this.addTask} 

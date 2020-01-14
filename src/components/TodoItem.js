@@ -2,11 +2,17 @@ import React from "react";
 
 const TodoItem = props => {
   console.log(`ToDoItem props: `, props)
+
+
+
   return (
-    <div className={`task${props.task.completed ? "completed" : ""}`}
-    onClick={() => props.toggleTask}
+    <div 
+      style={{textDecoration: props.task.completed ? "line-through" : ""}}
+      onClick={() => props.toggleTask(props.task.id)}
     >
-      <p>{props.task.task}</p>
+      
+        {props.task.task}
+    
     </div>
   )
 }
