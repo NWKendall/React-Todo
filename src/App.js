@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import TodoList from "./components/TodoList";
 import TodoForm from './components/TodoForm';
 
-const taskList = [];
-
-
-
 class App extends Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -14,7 +10,8 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      todoList: taskList,
+      todoList: [],
+      listDisplay: "all"      
     }
   }
 
@@ -24,7 +21,6 @@ class App extends Component {
         { return {
           ...item,
           completed: !item.completed
-          
           }
         } else {
           return item
@@ -37,7 +33,7 @@ class App extends Component {
 
   addTask = taskName => {
     const newTask = {
-      task: taskName,
+      text: taskName,
       id: Date.now(),
       completed: false
     };
@@ -55,22 +51,42 @@ class App extends Component {
   handleOnSubmit = e => {
     e.preventDefault();
     this.props.addTask(this.state.todoList)
-    
+  }
+
+  updateListDisplay = s => {
+    console.log(`this is s`, s)
+
+    this.setState({
+      listDisplay: s
+    })
   }
 
   render() {
+    let todoList = [];
+
+    if (this.state.listDisplay === "all"){
+      todoList = this.state.todoList
+    } else if (this.state.listDisplay === "active") {
+      todoList = this.state.todoList.filter(todo => !todo.completed)
+    } else if (this.state.listDisplay === "completed") {
+      todoList = this.state.todoList.filter(todo => todo.completed)
+    }
+
     return (
       
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoList 
-          todoList={this.state.todoList} 
+          todoList={todoList} 
           toggleTask={this.toggleTask}
           completeTask={this.completeTask}
         />
         <TodoForm 
           addTask={this.addTask} 
         />
+        <button onClick={() => this.updateListDisplay("all")}>All</button>
+        <button onClick={() => this.updateListDisplay("active")}>Active</button>
+        <button onClick={() => this.updateListDisplay("complete")}>Complete</button>
 
       </div>
     );
